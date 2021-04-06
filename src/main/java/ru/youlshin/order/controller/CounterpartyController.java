@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/counterparty")
 public class CounterpartyController implements Controller<Counterparty> {
-    private Logger logger = LoggerFactory.getLogger(NomenclatureController.class);
+    private static final Logger logger = LoggerFactory.getLogger(NomenclatureController.class);
     private static final List<Counterparty> COUNTERPARTY_LIST = new ArrayList<>();
 
     static {
@@ -20,20 +20,6 @@ public class CounterpartyController implements Controller<Counterparty> {
         COUNTERPARTY_LIST.add(new Counterparty(2, "Батон", "9 мая"));
         COUNTERPARTY_LIST.add(new Counterparty(3, "Магнит", "Бородино"));
         COUNTERPARTY_LIST.add(new Counterparty(4, "Хороший", "9 мая"));
-    }
-
-    @Override
-    public Counterparty add(@RequestBody Counterparty body) {
-        logger.info(body.toString());
-        var counterparty = new Counterparty(
-                COUNTERPARTY_LIST.get(COUNTERPARTY_LIST.size() - 1).getId() + 1,
-                body.getTitle(),
-                body.getDescription()
-        );
-
-        COUNTERPARTY_LIST.add(counterparty);
-        logger.info(counterparty.toString());
-        return counterparty;
     }
 
     @Override
@@ -49,6 +35,20 @@ public class CounterpartyController implements Controller<Counterparty> {
     @GetMapping
     public List<Counterparty> getAll() {
         return COUNTERPARTY_LIST;
+    }
+
+    @Override
+    public Counterparty add(@RequestBody Counterparty body) {
+        logger.info(body.toString());
+        var counterparty = new Counterparty(
+                COUNTERPARTY_LIST.get(COUNTERPARTY_LIST.size() - 1).getId() + 1,
+                body.getTitle(),
+                body.getDescription()
+        );
+
+        COUNTERPARTY_LIST.add(counterparty);
+        logger.info(counterparty.toString());
+        return counterparty;
     }
 }
 
