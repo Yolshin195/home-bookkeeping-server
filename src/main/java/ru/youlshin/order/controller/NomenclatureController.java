@@ -1,29 +1,53 @@
 package ru.youlshin.order.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
 import ru.youlshin.order.entity.Nomenclature;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/nomenclature")
-public class NomenclatureController {
-    private static final List<Nomenclature> nomenclatureList = new ArrayList<>();
+public class NomenclatureController implements Controller<Nomenclature> {
+    private Logger logger = LoggerFactory.getLogger(NomenclatureController.class);
+    private static final List<Nomenclature> NOMENCLATURE_LIST = new ArrayList<>();
     static {
-        nomenclatureList.add(new Nomenclature(1, "Хлеб", "Пшеничный"));
-        nomenclatureList.add(new Nomenclature(2, "Молоко", "Отборное 2л"));
-        nomenclatureList.add(new Nomenclature(3, "Квас", "На брульках"));
-        nomenclatureList.add(new Nomenclature(4, "Доширак", "Куринный"));
+        NOMENCLATURE_LIST.add(new Nomenclature(1, "Хлеб", "Пшеничный"));
+        NOMENCLATURE_LIST.add(new Nomenclature(2, "Молоко", "Отборное 2л"));
+        NOMENCLATURE_LIST.add(new Nomenclature(3, "Квас", "На брульках"));
+        NOMENCLATURE_LIST.add(new Nomenclature(4, "Доширак", "Куринный"));
     }
 
+    @Override
+    @GetMapping("/{ID}")
+    public Nomenclature get(@PathVariable(value="ID") long id) {
+        for (Nomenclature nomenclature : NOMENCLATURE_LIST) {
+            if (nomenclature.getId() == id) return nomenclature;
+        }
+        return null;
+    }
+
+    @Override
     @GetMapping
     public List<Nomenclature> getAll() {
-        return nomenclatureList;
+        return NOMENCLATURE_LIST;
+    }
+
+    @Override
+    @PostMapping
+    public Nomenclature add(@RequestBody Nomenclature body) {
+        logger.info(body.toString());
+        var nomenclature = new Nomenclature(
+                NOMENCLATURE_LIST.get(NOMENCLATURE_LIST.size() - 1).getId() + 1,
+                body.getTitle(),
+                body.getDescription()
+        );
+
+        NOMENCLATURE_LIST.add(nomenclature);
+        logger.info(nomenclature.toString());
+        return nomenclature;
     }
 }

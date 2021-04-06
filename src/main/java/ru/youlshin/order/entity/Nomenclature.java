@@ -22,4 +22,13 @@ public class Nomenclature {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "Nomenclature{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

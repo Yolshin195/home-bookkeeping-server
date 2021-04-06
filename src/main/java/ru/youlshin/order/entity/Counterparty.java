@@ -22,4 +22,13 @@ public class Counterparty {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "Counterparty{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

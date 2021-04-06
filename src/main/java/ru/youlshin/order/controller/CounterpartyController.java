@@ -1,9 +1,8 @@
 package ru.youlshin.order.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
 import ru.youlshin.order.entity.Counterparty;
 
 import java.util.ArrayList;
@@ -12,7 +11,8 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/counterparty")
-public class CounterpartyController {
+public class CounterpartyController implements Controller<Counterparty> {
+    private Logger logger = LoggerFactory.getLogger(NomenclatureController.class);
     private static final List<Counterparty> COUNTERPARTY_LIST = new ArrayList<>();
 
     static {
@@ -22,6 +22,30 @@ public class CounterpartyController {
         COUNTERPARTY_LIST.add(new Counterparty(4, "Хороший", "9 мая"));
     }
 
+    @Override
+    public Counterparty add(@RequestBody Counterparty body) {
+        logger.info(body.toString());
+        var counterparty = new Counterparty(
+                COUNTERPARTY_LIST.get(COUNTERPARTY_LIST.size() - 1).getId() + 1,
+                body.getTitle(),
+                body.getDescription()
+        );
+
+        COUNTERPARTY_LIST.add(counterparty);
+        logger.info(counterparty.toString());
+        return counterparty;
+    }
+
+    @Override
+    @GetMapping("/{ID}")
+    public Counterparty get(@PathVariable(value="ID") long id) {
+        for (Counterparty counterparty : COUNTERPARTY_LIST) {
+            if (counterparty.getId() == id) return counterparty;
+        }
+        return null;
+    }
+
+    @Override
     @GetMapping
     public List<Counterparty> getAll() {
         return COUNTERPARTY_LIST;
