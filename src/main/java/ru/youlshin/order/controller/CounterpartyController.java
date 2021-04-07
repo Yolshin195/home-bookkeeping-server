@@ -38,6 +38,7 @@ public class CounterpartyController implements Controller<Counterparty> {
     }
 
     @Override
+    @PostMapping
     public Counterparty add(@RequestBody Counterparty body) {
         logger.info(body.toString());
         var counterparty = new Counterparty(
