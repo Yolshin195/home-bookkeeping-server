@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/counterparty")
 public class CounterpartyController implements Controller<Counterparty> {
     private static final Logger logger = LoggerFactory.getLogger(NomenclatureController.class);
-    private static final List<Counterparty> COUNTERPARTY_LIST = new ArrayList<>();
+    public static final List<Counterparty> COUNTERPARTY_LIST = new ArrayList<>();
 
     static {
         COUNTERPARTY_LIST.add(new Counterparty(1, "Пятерочка", "9 мая"));

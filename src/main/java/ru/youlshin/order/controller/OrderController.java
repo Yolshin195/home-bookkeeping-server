@@ -31,7 +31,7 @@ public class OrderController implements Controller<Order> {
 
     @Override
     @GetMapping("/{ID}")
-    public Order get(long id) {
+    public Order get(@PathVariable(value = "ID") long id) {
         for (var order : ORDER_LIST) {
             if (order.getId() == id) {
                 return order;

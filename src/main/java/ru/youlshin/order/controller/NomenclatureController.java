@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/nomenclature")
 public class NomenclatureController implements Controller<Nomenclature> {
     private static final Logger logger = LoggerFactory.getLogger(NomenclatureController.class);
-    private static final List<Nomenclature> NOMENCLATURE_LIST = new ArrayList<>();
+    public static final List<Nomenclature> NOMENCLATURE_LIST = new ArrayList<>();
     static {
         NOMENCLATURE_LIST.add(new Nomenclature(1, "Хлеб", "Пшеничный"));
         NOMENCLATURE_LIST.add(new Nomenclature(2, "Молоко", "Отборное 2л"));
