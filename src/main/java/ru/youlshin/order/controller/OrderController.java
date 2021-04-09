@@ -17,7 +17,7 @@ public class OrderController implements Controller<Order> {
 
     @Override
     @PostMapping
-    public Order add(@RequestBody Order body) {
+    public Order save(@RequestBody Order body) {
         logger.info(body.toString());
         if (ORDER_LIST.size() > 0) {
             body.setId(ORDER_LIST.get(ORDER_LIST.size() - 1).getId() + 1);
@@ -31,7 +31,7 @@ public class OrderController implements Controller<Order> {
 
     @Override
     @GetMapping("/{ID}")
-    public Order get(@PathVariable(value = "ID") long id) {
+    public Order findById(@PathVariable(value = "ID") long id) {
         for (var order : ORDER_LIST) {
             if (order.getId() == id) {
                 return order;
@@ -42,7 +42,7 @@ public class OrderController implements Controller<Order> {
 
     @Override
     @GetMapping
-    public List<Order> getAll() {
+    public List<Order> findAll() {
         return ORDER_LIST;
     }
 }

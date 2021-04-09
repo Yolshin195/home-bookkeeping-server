@@ -24,7 +24,7 @@ public class CounterpartyController implements Controller<Counterparty> {
 
     @Override
     @GetMapping("/{ID}")
-    public Counterparty get(@PathVariable(value="ID") long id) {
+    public Counterparty findById(@PathVariable(value="ID") long id) {
         for (Counterparty counterparty : COUNTERPARTY_LIST) {
             if (counterparty.getId() == id) return counterparty;
         }
@@ -33,13 +33,13 @@ public class CounterpartyController implements Controller<Counterparty> {
 
     @Override
     @GetMapping
-    public List<Counterparty> getAll() {
+    public List<Counterparty> findAll() {
         return COUNTERPARTY_LIST;
     }
 
     @Override
     @PostMapping
-    public Counterparty add(@RequestBody Counterparty body) {
+    public Counterparty save(@RequestBody Counterparty body) {
         logger.info(body.toString());
         var counterparty = new Counterparty(
                 COUNTERPARTY_LIST.get(COUNTERPARTY_LIST.size() - 1).getId() + 1,

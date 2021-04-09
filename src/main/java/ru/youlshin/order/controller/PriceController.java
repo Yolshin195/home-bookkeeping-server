@@ -3,6 +3,7 @@ package ru.youlshin.order.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import ru.youlshin.order.entity.Nomenclature;
 import ru.youlshin.order.entity.Price;
 
 import java.util.ArrayList;
@@ -19,14 +20,14 @@ public class PriceController implements Controller<Price> {
         LIST.add(new Price()
                 .id(1)
                 .price(20)
-                .nomenclature(NomenclatureController.NOMENCLATURE_LIST.get(0))
+                .nomenclature(new Nomenclature(1, "Хлуб", "Пшеничный"))
                 .counterparty(CounterpartyController.COUNTERPARTY_LIST.get(0))
                 .create(new Date())
         );
         LIST.add(new Price()
                 .id(2)
                 .price(40)
-                .nomenclature(NomenclatureController.NOMENCLATURE_LIST.get(1))
+                .nomenclature(new Nomenclature(1, "Сок", "Клубничный"))
                 .counterparty(CounterpartyController.COUNTERPARTY_LIST.get(0))
                 .create(new Date())
         );
@@ -34,7 +35,7 @@ public class PriceController implements Controller<Price> {
 
     @Override
     @PostMapping
-    public Price add(@RequestBody Price body) {
+    public Price save(@RequestBody Price body) {
         logger.info(body.toString());
         if (LIST.size() > 0) {
             body.setId(LIST.get(LIST.size() - 1).getId() + 1);
@@ -48,7 +49,7 @@ public class PriceController implements Controller<Price> {
 
     @Override
     @GetMapping("/{ID}")
-    public Price get(@PathVariable(value = "ID") long id) {
+    public Price findById(@PathVariable(value = "ID") long id) {
         for (var price : LIST) {
             if (price.getId() == id) {
                 return price;
@@ -59,7 +60,7 @@ public class PriceController implements Controller<Price> {
 
     @Override
     @GetMapping
-    public List<Price> getAll() {
+    public List<Price> findAll() {
         return LIST;
     }
 }

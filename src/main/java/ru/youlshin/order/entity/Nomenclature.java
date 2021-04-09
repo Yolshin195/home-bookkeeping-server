@@ -1,10 +1,19 @@
 package ru.youlshin.order.entity;
 
-public class Nomenclature {
-    private final long id;
-    private final String title;
-    private final String description;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Nomenclature {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String title;
+    private String description;
+
+    public Nomenclature() {}
     public Nomenclature(long id, String title, String description) {
         this.id = id;
         this.title = title;
