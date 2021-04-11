@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity(name = "Product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
     private Nomenclature nomenclature;

@@ -1,12 +1,20 @@
 package ru.youlshin.order.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Price {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private long price;
     private Date create;
+    @ManyToOne
     private Counterparty counterparty;
+    @ManyToOne
     private Nomenclature nomenclature;
 
     public long getId() {

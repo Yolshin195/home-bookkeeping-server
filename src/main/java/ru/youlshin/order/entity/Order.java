@@ -10,7 +10,7 @@ import java.util.List;
 @Entity(name = "Order_")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
     private Counterparty counterparty;
@@ -18,8 +18,6 @@ public class Order {
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<Product> productList = new ArrayList<>();
 
-    @Column(name = "create_date")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date create;
 
     public long getId() {
