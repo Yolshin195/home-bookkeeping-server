@@ -1,12 +1,25 @@
 package ru.youlshin.order.entity;
 
-import java.util.Arrays;
-import java.util.Date;
+import org.hibernate.annotations.IndexColumn;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+@Entity(name = "Order_")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @ManyToOne
     private Counterparty counterparty;
-    private Product[] productList;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    private List<Product> productList = new ArrayList<>();
+
+    @Column(name = "create_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date create;
 
     public long getId() {
@@ -25,11 +38,11 @@ public class Order {
         this.counterparty = counterparty;
     }
 
-    public Product[] getProductList() {
+    public List<Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(Product[] productList) {
+    public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
 
@@ -46,7 +59,7 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", counterparty=" + counterparty +
-                ", productList=" + Arrays.toString(productList) +
+                ", productList=" + productList +
                 ", create=" + create +
                 '}';
     }

@@ -9,10 +9,11 @@ import javax.persistence.Id;
 public class Counterparty {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final long id;
-    private final String title;
-    private final String description;
+    private long id;
+    private String title;
+    private String description;
 
+    public Counterparty() {}
     public Counterparty(long id, String title, String description) {
         this.id = id;
         this.title = title;

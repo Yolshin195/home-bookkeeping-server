@@ -1,48 +1,31 @@
 package ru.youlshin.order.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import ru.youlshin.order.entity.Order;
+import ru.youlshin.order.entity.Product;
+import ru.youlshin.order.repository.OrderRepository;
+import ru.youlshin.order.repository.ProductRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/order")
-public class OrderController implements Controller<Order> {
-    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
-    private static final List<Order> ORDER_LIST = new ArrayList<>();
+public class OrderController extends BaseController<Order> {
+    private ProductRepository productRepository;
+
+    public OrderController(OrderRepository repository, ProductRepository productRepository) {
+        super(repository);
+        this.productRepository = productRepository;
+    }
 
     @Override
     @PostMapping
     public Order save(@RequestBody Order body) {
-        logger.info(body.toString());
-        if (ORDER_LIST.size() > 0) {
-            body.setId(ORDER_LIST.get(ORDER_LIST.size() - 1).getId() + 1);
-        } else {
-            body.setId(1);
-        }
-        ORDER_LIST.add(body);
-        logger.info(body.toString());
-        return body;
-    }
+        Order order = super.save(body);
+        order.getProductList().forEach(product -> product.setOrder(order));
+        order.setProductList((List<Product>) productRepository.saveAll(body.getProductList()));
 
-    @Override
-    @GetMapping("/{ID}")
-    public Order findById(@PathVariable(value = "ID") long id) {
-        for (var order : ORDER_LIST) {
-            if (order.getId() == id) {
-                return order;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    @GetMapping
-    public List<Order> findAll() {
-        return ORDER_LIST;
+        return order;
     }
 }

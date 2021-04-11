@@ -1,9 +1,12 @@
 package ru.youlshin.order.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.web.bind.annotation.*;
 
 public abstract class BaseController<T> {
+    private final static Logger logger = LoggerFactory.getLogger(BaseController.class);
     private CrudRepository<T, Long> repository;
 
     public BaseController(CrudRepository<T, Long> repository) {
@@ -12,6 +15,7 @@ public abstract class BaseController<T> {
 
     @PostMapping
     public T save(@RequestBody T body) {
+        logger.info(body.toString());
         return repository.save(body);
     }
 

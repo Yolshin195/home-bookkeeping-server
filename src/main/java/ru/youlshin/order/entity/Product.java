@@ -1,8 +1,19 @@
 package ru.youlshin.order.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Entity(name = "Product")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @ManyToOne
     private Nomenclature nomenclature;
+    @JsonIgnore
+    @ManyToOne
+    private Order order;
     private int amount;
     private int price;
     private int sum;
@@ -47,11 +58,20 @@ public class Product {
         this.sum = sum;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", nomenclature=" + nomenclature +
+                ", order=" + order +
                 ", amount=" + amount +
                 ", price=" + price +
                 ", sum=" + sum +
