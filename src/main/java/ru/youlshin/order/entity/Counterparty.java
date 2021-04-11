@@ -1,6 +1,14 @@
 package ru.youlshin.order.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Counterparty {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private final long id;
     private final String title;
     private final String description;

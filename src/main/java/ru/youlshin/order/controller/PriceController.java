@@ -3,6 +3,7 @@ package ru.youlshin.order.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import ru.youlshin.order.entity.Counterparty;
 import ru.youlshin.order.entity.Nomenclature;
 import ru.youlshin.order.entity.Price;
 
@@ -21,14 +22,14 @@ public class PriceController implements Controller<Price> {
                 .id(1)
                 .price(20)
                 .nomenclature(new Nomenclature(1, "Хлуб", "Пшеничный"))
-                .counterparty(CounterpartyController.COUNTERPARTY_LIST.get(0))
+                .counterparty(new Counterparty(1, "Батон", "Возле дома"))
                 .create(new Date())
         );
         LIST.add(new Price()
                 .id(2)
                 .price(40)
                 .nomenclature(new Nomenclature(1, "Сок", "Клубничный"))
-                .counterparty(CounterpartyController.COUNTERPARTY_LIST.get(0))
+                .counterparty(new Counterparty(1, "Батон", "Возле дома"))
                 .create(new Date())
         );
     }
