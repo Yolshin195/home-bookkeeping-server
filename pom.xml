@@ -15,6 +15,7 @@
 	<description>rest api for register order</description>
 	<properties>
 		<java.version>16</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<profiles>

@@ -20,4 +20,13 @@ public class PriceController extends BaseController<Price> {
         body.setCreate(new Date());
         return super.save(body);
     }
+
+    @GetMapping(value = "/find")
+    public Price findByNomenclatureAndCounterparty(
+            @RequestParam(value = "nID") long nID,
+            @RequestParam(value = "cID") long cID)
+    {
+        return ((PriceRepository)repository)
+                .findFirstByNomenclatureIdAndCounterpartyIdOrderByCreateDesc(nID, cID);
+    }
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 public abstract class BaseController<T> {
     private final static Logger logger = LoggerFactory.getLogger(BaseController.class);
-    private CrudRepository<T, Long> repository;
+    protected CrudRepository<T, Long> repository;
 
     public BaseController(CrudRepository<T, Long> repository) {
         this.repository = repository;
