@@ -1,7 +1,5 @@
 package ru.youlshin.order.entity;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,7 +8,7 @@ public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long price;
+    private int price;
     private Date create;
     @ManyToOne
     private Counterparty counterparty;
@@ -28,13 +26,13 @@ public class Price {
         return this;
     }
 
-    public long getPrice() {
+    public int getPrice() {
         return price;
     }
-    public void setPrice(long price) {
+    public void setPrice(int price) {
         this.price = price;
     }
-    public Price price(long price) {
+    public Price price(int price) {
         this.price = price;
         return this;
     }
