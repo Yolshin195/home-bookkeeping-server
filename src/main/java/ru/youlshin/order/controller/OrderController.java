@@ -28,9 +28,9 @@ public class OrderController extends BaseController<Order> {
     @PostMapping
     public Order save(@RequestBody Order body) {
         body.getProductList().forEach(product -> {
-            int price = priceRepository.findFirstByNomenclatureIdAndCounterpartyIdOrderByCreateDesc(
-                    product.getNomenclature().getId(), body.getCounterparty().getId()).getPrice();
-            if (product.getPrice() != price) {
+             Price price = priceRepository.findFirstByNomenclatureIdAndCounterpartyIdOrderByCreateDesc(
+                    product.getNomenclature().getId(), body.getCounterparty().getId());
+            if (price == null || product.getPrice().equals(price.getPrice())) {
                 priceRepository.save(new Price()
                         .price(product.getPrice())
                         .counterparty(body.getCounterparty())

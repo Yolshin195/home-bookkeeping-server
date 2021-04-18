@@ -3,6 +3,7 @@ package ru.youlshin.order.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity(name = "Product")
 public class Product {
@@ -14,9 +15,9 @@ public class Product {
     @JsonIgnore
     @ManyToOne
     private Order order;
-    private int amount;
-    private int price;
-    private int sum;
+    private BigDecimal amount;
+    private BigDecimal price;
+    private BigDecimal sum;
 
     public long getId() {
         return id;
@@ -34,27 +35,27 @@ public class Product {
         this.nomenclature = nomenclature;
     }
 
-    public int getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public int getSum() {
+    public BigDecimal getSum() {
         return sum;
     }
 
-    public void setSum(int sum) {
+    public void setSum(BigDecimal sum) {
         this.sum = sum;
     }
 

@@ -1,6 +1,7 @@
 package ru.youlshin.order.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -8,7 +9,7 @@ public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int price;
+    private BigDecimal price;
     private Date create;
     @ManyToOne
     private Counterparty counterparty;
@@ -26,13 +27,13 @@ public class Price {
         return this;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
-    public Price price(int price) {
+    public Price price(BigDecimal price) {
         this.price = price;
         return this;
     }
